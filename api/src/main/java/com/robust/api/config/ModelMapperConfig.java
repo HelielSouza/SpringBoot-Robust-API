@@ -1,4 +1,4 @@
-package com.robust.api;
+package com.robust.api.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
