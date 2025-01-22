@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.robust.api.data.model.Person;
+import com.robust.api.data.dto.PersonDto;
 import com.robust.api.service.PersonService;
 
 
@@ -23,15 +23,14 @@ public class PersonController {
 	private PersonService service;
 	
 	@GetMapping()
-	public ResponseEntity<List<Person>> findAll() {
-		List<Person> list = service.findAll();
+	public ResponseEntity<List<PersonDto>> findAll() {
+		List<PersonDto> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Person> findById(@PathVariable(ID) Long id) {
-		Person obj = service.findById(id);
+	public ResponseEntity<PersonDto> findById(@PathVariable(ID) Long id) {
+		PersonDto obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
 }

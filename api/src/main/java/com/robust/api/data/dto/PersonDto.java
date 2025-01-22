@@ -13,16 +13,10 @@ public class PersonDto implements Serializable {
 	
 	private String lastName;
 	
-	private String address;
-	
-	private String gender;
-	
-	public PersonDto(Long id, String firstName, String lastName, String address, String gender) {
+	public PersonDto(Long id, String firstName, String lastName) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.address = address;
-		this.gender = gender;
 	}
 	
 	public PersonDto() {}
@@ -50,28 +44,12 @@ public class PersonDto implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	public String getAddress() {
-		return address;
-	}
-	
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
-	public String getGender() {
-		return gender;
-	}
-	
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, firstName, gender, id, lastName);
+		return Objects.hash(firstName, id, lastName);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -81,8 +59,7 @@ public class PersonDto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		PersonDto other = (PersonDto) obj;
-		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
+		return Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName);
 	}
 }
