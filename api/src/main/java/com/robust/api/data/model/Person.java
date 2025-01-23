@@ -27,18 +27,27 @@ public class Person implements Serializable {
 	private String lastName;
 	
 	@Column(nullable = false, length = 100)
+	private String email;
+	
+	@Column(nullable = false, length = 100)
+	private String password;
+	
+	@Column(nullable = false, length = 100)
 	private String address;
 	
-	@Column( nullable = false, length = 15)
+	@Column(nullable = false, length = 15)
 	private String gender;
 	
 	public Person() {}
 	
-	public Person(Long id, String firstName, String lastName, String address, String gender) {
+	public Person(Long id, String firstName, String lastName, String email, String password, String address,
+			String gender) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
 		this.address = address;
 		this.gender = gender;
 	}
@@ -83,11 +92,27 @@ public class Person implements Serializable {
 		this.gender = gender;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, firstName, gender, id, lastName);
+		return Objects.hash(address, email, firstName, gender, id, lastName, password);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -97,8 +122,9 @@ public class Person implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName);
+		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
+				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(password, other.password);
 	}
 }
