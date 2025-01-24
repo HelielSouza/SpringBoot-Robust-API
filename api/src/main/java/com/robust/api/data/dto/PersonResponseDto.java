@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"id", "first_name", "last_name", "email", "address", "gender"})
-public class PersonDto extends RepresentationModel<PersonDto> implements Serializable {
+public class PersonResponseDto extends RepresentationModel<PersonResponseDto> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class PersonDto extends RepresentationModel<PersonDto> implements Seriali
 	
 	private String gender;
 	
-	public PersonDto(Long key, String firstName, String lastName, String email, String address, String gender) {
+	public PersonResponseDto(Long key, String firstName, String lastName, String email, String address, String gender) {
 		this.key = key;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -37,7 +37,7 @@ public class PersonDto extends RepresentationModel<PersonDto> implements Seriali
 		this.gender = gender;
 	}
 	
-	public PersonDto() {}
+	public PersonResponseDto() {}
 	
 	public Long getKey() {
 		return key;
@@ -100,7 +100,7 @@ public class PersonDto extends RepresentationModel<PersonDto> implements Seriali
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonDto other = (PersonDto) obj;
+		PersonResponseDto other = (PersonResponseDto) obj;
 		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
 				&& Objects.equals(key, other.key) && Objects.equals(lastName, other.lastName);

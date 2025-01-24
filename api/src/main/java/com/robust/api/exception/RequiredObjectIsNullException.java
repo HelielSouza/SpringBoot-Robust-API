@@ -5,6 +5,6 @@ public class RequiredObjectIsNullException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public RequiredObjectIsNullException () {
-		super("Não é possível persistir um objeto nulo");
+		super("O objeto requerido não pode ser nulo");
 	}
 }

@@ -37,7 +37,8 @@ public class WebConfig implements WebMvcConfigurer{
 		
 		// Via HEADER PARAM. http://localhost:8080/api/v1/person
 		
-		configurer.favorParameter(false)
+		configurer
+		.favorParameter(false)
 		.ignoreAcceptHeader(false)
 		.useRegisteredExtensionsOnly(false)
 		.defaultContentType(MediaType.APPLICATION_JSON)

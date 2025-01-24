@@ -8,8 +8,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import com.robust.api.controller.PersonController;
-import com.robust.api.data.dto.PersonDto;
-import com.robust.api.data.dto.PersonInsertDto;
+import com.robust.api.data.dto.PersonResponseDto;
+import com.robust.api.data.dto.PersonRequestDto;
 import com.robust.api.data.model.Person;
 import com.robust.api.exception.RequiredObjectIsNullException;
 import com.robust.api.exception.ResourceNotFoundException;
@@ -22,30 +22,59 @@ public class PersonService {
 	@Autowired
 	private PersonRepository repository;
 	
-	public List<PersonDto> findAll() { 
+	public List<PersonResponseDto> findAll() { 
 	 	List<Person> list = repository.findAll();
-	 	List<PersonDto>dtoList = ObjectMapper.convertList(list, PersonDto.class);
+	 	
+	 	List<PersonResponseDto>dtoList = ObjectMapper.convertList(list, PersonResponseDto.class);
 	 	dtoList
 	 		.stream()
 	 		.forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
 	 	return dtoList;
 	 }
 	 
-	public PersonDto findById (Long id) {
+	public PersonResponseDto findById(Long id) {
 		Person obj = repository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException(id));
 		
-		PersonDto objDto = ObjectMapper.convertObject(obj, PersonDto.class);
+		PersonResponseDto objDto = ObjectMapper.convertObject(obj, PersonResponseDto.class);
 		objDto.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		return objDto;
 	}
 	
-	public PersonDto insert (PersonInsertDto obj) {
+	public PersonResponseDto insert(PersonRequestDto obj) {
 		if(obj == null) throw new RequiredObjectIsNullException();
 		
 		Person entity = ObjectMapper.convertObject(obj, Person.class);
-		PersonDto objInserted = ObjectMapper.convertObject(repository.save(entity), PersonDto.class);
+		PersonResponseDto objInserted = ObjectMapper.convertObject(repository.save(entity), PersonResponseDto.class);
 		objInserted.add(linkTo(methodOn(PersonController.class).findById(objInserted.getKey())).withSelfRel());
 		return objInserted;
+	}
+	
+	public void delete(Long id) {
+		Person obj = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id));
+		
+		repository.delete(obj);
+	}
+	
+	public PersonResponseDto update(PersonRequestDto obj, Long id) {
+		if(obj == null) throw new RequiredObjectIsNullException();
+		
+		Person newEntity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id));
+		
+		updateData(newEntity, obj);
+		PersonResponseDto objConverted = ObjectMapper.convertObject(repository.save(newEntity), PersonResponseDto.class);
+		objConverted.add(linkTo(methodOn(PersonController.class).findById(objConverted.getKey())).withSelfRel());
+		return objConverted;
+	}
+	
+	private void updateData(Person newObj, PersonRequestDto obj) {
+		newObj.setFirstName(obj.getFirstName());
+		newObj.setLastName(obj.getLastName());
+		newObj.setEmail(obj.getEmail());
+		newObj.setPassword(obj.getPassword());
+		newObj.setGender(obj.getGender());
+		newObj.setAddress(obj.getAddress());
 	}
 }

@@ -3,12 +3,18 @@ package com.robust.api.data.dto;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonInsertDto implements Serializable {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({"first_name", "last_name", "email", "password", "address", "gender"})
+public class PersonRequestDto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	@JsonProperty("first_name")
 	private String firstName;
 	
+	@JsonProperty("last_name")
 	private String lastName;
 	
 	private String email;
@@ -19,7 +25,7 @@ public class PersonInsertDto implements Serializable {
 	
 	private String gender;
 
-	public PersonInsertDto(String firstName, String lastName, String email, String password, String address,
+	public PersonRequestDto(String firstName, String lastName, String email, String password, String address,
 			String gender) {
 		super();
 		this.firstName = firstName;
@@ -30,7 +36,7 @@ public class PersonInsertDto implements Serializable {
 		this.gender = gender;
 	}
 
-	public PersonInsertDto() {
+	public PersonRequestDto() {
 		super();
 	}
 
@@ -95,7 +101,7 @@ public class PersonInsertDto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonInsertDto other = (PersonInsertDto) obj;
+		PersonRequestDto other = (PersonRequestDto) obj;
 		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password);

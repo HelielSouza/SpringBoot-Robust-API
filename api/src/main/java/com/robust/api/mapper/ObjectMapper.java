@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
-import com.robust.api.data.dto.PersonDto;
+import com.robust.api.data.dto.PersonResponseDto;
 import com.robust.api.data.model.Person;
 
 
@@ -15,7 +15,7 @@ public class ObjectMapper {
 	private static final ModelMapper modelMapper = new ModelMapper();
 	
 	static {
-        modelMapper.addMappings(new PropertyMap<Person, PersonDto>() {
+        modelMapper.addMappings(new PropertyMap<Person, PersonResponseDto>() {
         	@Override
         	protected void configure() {
         		map().setKey(source.getId());
