@@ -54,7 +54,7 @@ public class PersonController {
 	public ResponseEntity<PersonDto> insert(@RequestBody PersonInsertDto obj) {
 		PersonDto person = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(person.getId()).toUri();
+				.buildAndExpand(person.getKey()).toUri();
 		
 		return ResponseEntity.created(uri).body(person);
 	}

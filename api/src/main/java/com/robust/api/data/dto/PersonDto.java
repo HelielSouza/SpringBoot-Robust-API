@@ -3,15 +3,18 @@ package com.robust.api.data.dto;
 import java.io.Serializable;
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"id", "first_name", "last_name", "email", "address", "gender"})
-public class PersonDto implements Serializable {
+public class PersonDto extends RepresentationModel<PersonDto> implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	@JsonProperty("id")
+	private Long key;
 	
 	@JsonProperty("first_name")
 	private String firstName;
@@ -25,8 +28,8 @@ public class PersonDto implements Serializable {
 	
 	private String gender;
 	
-	public PersonDto(Long id, String firstName, String lastName, String email, String address, String gender) {
-		this.id = id;
+	public PersonDto(Long key, String firstName, String lastName, String email, String address, String gender) {
+		this.key = key;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -36,14 +39,14 @@ public class PersonDto implements Serializable {
 	
 	public PersonDto() {}
 	
-	public Long getId() {
-		return id;
+	public Long getKey() {
+		return key;
 	}
-	
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setKey(Long key) {
+		this.key = key;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -86,7 +89,7 @@ public class PersonDto implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, email, firstName, gender, id, lastName);
+		return Objects.hash(address, email, firstName, gender, key, lastName);
 	}
 
 	@Override
@@ -100,6 +103,6 @@ public class PersonDto implements Serializable {
 		PersonDto other = (PersonDto) obj;
 		return Objects.equals(address, other.address) && Objects.equals(email, other.email)
 				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
-				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
+				&& Objects.equals(key, other.key) && Objects.equals(lastName, other.lastName);
 	}
 }
